@@ -4,14 +4,33 @@ A small, dependency-free command-line check for CSV files before import. It runs
 
 This project was created with AI assistance. Automated tests cover representative cases; please review outputs before relying on them.
 
-## Run
+## Quick start
 
-Requires Python 3.9 or newer. Download `csv_preflight.py` and run:
+Requires Python 3.9 or newer; there are no third-party packages to install. [Download `csv_preflight.py`](https://raw.githubusercontent.com/DatumScribe/csv-preflight/master/csv_preflight.py), save it beside your CSV (or use its full path), then run:
 
 ```sh
+python csv_preflight.py your-file.csv
+```
+
+With the included `example.csv`, the output is:
+
+```text
+Checked 2 data records. 0 structural issue(s).
+```
+
+To use the sample and other project files, [clone the repository](https://github.com/DatumScribe/csv-preflight):
+
+```sh
+git clone https://github.com/DatumScribe/csv-preflight.git
+cd csv-preflight
 python csv_preflight.py example.csv
-python csv_preflight.py example.psv --delimiter "|"
-python csv_preflight.py example.csv --required-header item --required-header quantity
+```
+
+Other examples:
+
+```sh
+python csv_preflight.py your-file.psv --delimiter "|"
+python csv_preflight.py your-file.csv --required-header item --required-header quantity
 ```
 
 For a tab delimiter, pass an actual tab character as the argument; shell quoting varies. Exit code 0 means no structural issues found, 1 means issues were found, and 2 means input could not be read or parsed. Blank data records are counted and reported as short records. Quoted line breaks are supported; record numbers and physical line numbers can differ. A clean result is not a guarantee that an import will succeed.
