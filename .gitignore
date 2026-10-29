@@ -1,0 +1,2 @@
+# Local reports are generated outputs, not project files.
+*.quality-report.md

@@ -1,0 +1,7 @@
+type,code,region,status
+alpha,01,north,ready
+beta,02,west,ready
+gamma,03,south,
+delta,04,east,ready
+epsilon,05,central,ready
+zeta,06,north
