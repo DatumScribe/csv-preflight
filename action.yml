@@ -1,0 +1,24 @@
+name: CSV Preflight
+author: DatumScribe
+description: Check CSV structure in a GitHub Actions workflow without printing cell values.
+inputs:
+  file:
+    description: Path to the CSV file relative to the checked-out repository.
+    required: true
+  delimiter:
+    description: Single-character field delimiter (comma by default).
+    required: false
+    default: ","
+runs:
+  using: composite
+  steps:
+    - name: Check CSV structure
+      shell: bash
+      env:
+        CSV_PREFLIGHT_FILE: ${{ inputs.file }}
+        CSV_PREFLIGHT_DELIMITER: ${{ inputs.delimiter }}
+        CSV_PREFLIGHT_SCRIPT: ${{ github.action_path }}/csv_preflight.py
+      run: |
+        python3 "$CSV_PREFLIGHT_SCRIPT" \
+          --delimiter "$CSV_PREFLIGHT_DELIMITER" \
+          -- "$CSV_PREFLIGHT_FILE"

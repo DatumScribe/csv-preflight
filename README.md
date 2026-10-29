@@ -39,6 +39,18 @@ Use `--required-header` once for each header you want to check. Matching is case
 
 Run the included checks for `csv_preflight.py` with `python -m unittest discover -s tests` from this directory. That checker does not upload or modify files; its output may still reveal row counts and locations, so handle logs appropriately. The report tool writes a new Markdown file and is described below.
 
+## GitHub Actions
+
+After your workflow checks out the repository, add this step to check a CSV file during CI:
+
+```yaml
+- uses: DatumScribe/csv-preflight@v1.0.0
+  with:
+    file: data/import.csv
+```
+
+The `file` path is relative to the checked-out repository. The optional `delimiter` input accepts one character and defaults to a comma. The step fails when structural issues are found or the file cannot be read. It uses `bash` and `python3` on a Linux runner with Python 3.9 or newer, runs the same local checker on the workflow runner, makes no network requests, and reports counts and structural positions without printing cell values.
+
 ## Detailed report mode
 
 Download [`csv_quality_report.py`](https://raw.githubusercontent.com/DatumScribe/csv-preflight/master/csv_quality_report.py) and run:
